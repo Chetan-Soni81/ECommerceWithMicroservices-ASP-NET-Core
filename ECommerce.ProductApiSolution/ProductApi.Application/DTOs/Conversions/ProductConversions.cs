@@ -12,7 +12,7 @@ namespace ProductApi.Application.DTOs.Conversions
             Quantity = product.Quantity
         };
 
-        public static (ProductDTO?, IEnumerable<ProductDTO>?) FromProduct(Product product, IEnumerable<Product>? products)
+        public static (ProductDTO?, IEnumerable<ProductDTO>?) FromEntity(Product product, IEnumerable<Product>? products)
         {
             // return single
             if (product is not null || products is null)

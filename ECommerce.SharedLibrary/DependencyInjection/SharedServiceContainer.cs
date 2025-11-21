@@ -40,7 +40,7 @@ namespace ECommerce.SharedLibrary.DependencyInjection
             app.UseMiddleware<Middleware.GlobalException>();
 
             // Use Listen To Only Api Gateway Middleware
-            app.UseMiddleware<Middleware.ListenToOnlyAPIGateway>();
+            //app.UseMiddleware<Middleware.ListenToOnlyAPIGateway>();
             return app;
         }
     }
