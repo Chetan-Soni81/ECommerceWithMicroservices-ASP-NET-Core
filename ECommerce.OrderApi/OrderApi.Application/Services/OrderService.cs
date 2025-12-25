@@ -27,7 +27,7 @@ namespace OrderApi.Application.Services
         {
             // Call User API using HttpClient
             // Redirect this call to the API Gateway since the User API is not responds to outsider.
-            var getUser = await httpClient.GetAsync($"/api/users/{clientId}");
+            var getUser = await httpClient.GetAsync($"/api/products/{clientId}");
             if (!getUser.IsSuccessStatusCode)
                 return null!;
             var user = await getUser.Content.ReadFromJsonAsync<AppUserDTO>();

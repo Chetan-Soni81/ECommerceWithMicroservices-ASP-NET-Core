@@ -10,7 +10,7 @@ namespace OrderApi.Application.DTOs.Conversions
             ClientId = order.ClientId,
             ProductId = order.ProductId,
             OrderedDate = order.OrderedDate,
-            ProductQuantity = order.ProductQuantity
+            PurchaseQuantity = order.PurchaseQuantity
         };
 
         public static (OrderDTO? , IEnumerable<OrderDTO>?) FromEntity(Order? order, IEnumerable<Order>? orders)
@@ -22,7 +22,7 @@ namespace OrderApi.Application.DTOs.Conversions
                     order!.Id,
                     order!.ProductId,
                     order!.ClientId,
-                    order!.ProductQuantity,
+                    order!.PurchaseQuantity,
                     order!.OrderedDate);
                 return (singleDTO, null);
             }
@@ -34,10 +34,12 @@ namespace OrderApi.Application.DTOs.Conversions
                     o.Id, 
                     o.ProductId, 
                     o.ClientId, 
-                    o.ProductQuantity, 
+                    o.PurchaseQuantity, 
                     o.OrderedDate)).ToList();
                 return (null, _orders);
             }
+
+            return (null, null);
         }
     }
 }

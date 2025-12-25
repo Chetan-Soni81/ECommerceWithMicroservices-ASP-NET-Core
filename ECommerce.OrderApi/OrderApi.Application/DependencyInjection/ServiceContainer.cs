@@ -7,7 +7,7 @@ using Polly.Retry;
 
 namespace OrderApi.Application.DependencyInjection
 {
-    public static class SeriviceContainer
+    public static class ServiceContainer
     {
         public static IServiceCollection AddApplicationService(this IServiceCollection services, IConfiguration config)
         {
@@ -16,6 +16,7 @@ namespace OrderApi.Application.DependencyInjection
             services.AddHttpClient<IOrderService, OrderService>(options =>
             {
                 options.BaseAddress = new Uri(config["ApiGateway:BaseAddress"]!);
+                options.Timeout = TimeSpan.FromSeconds(1);
             });
 
             // Create Retry Strategy
@@ -24,6 +25,8 @@ namespace OrderApi.Application.DependencyInjection
                 ShouldHandle = new PredicateBuilder().Handle<TaskCanceledException>(),
                 BackoffType = DelayBackoffType.Constant,
                 UseJitter = true,
+                MaxRetryAttempts= 3,
+                Delay = TimeSpan.FromMilliseconds(500),
                 OnRetry = args =>
                 {
                     string message = $"OnRetry, Attempt: {args.AttemptNumber} Outcome {args.Outcome}";
@@ -33,7 +36,7 @@ namespace OrderApi.Application.DependencyInjection
                 }
             };
 
-            services.AddResiliencePipeline("my-resilience-pipeline", builder =>
+            services.AddResiliencePipeline("my-retry-pipeline", builder =>
             {
                 builder.AddRetry(retryStrategy);
             });

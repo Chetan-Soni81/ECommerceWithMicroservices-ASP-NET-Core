@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using OrderApi.Application.Interfaces;
+using OrderApi.Application.Services;
 using OrderApi.Infrastructure.Data;
 using OrderApi.Infrastructure.Repositories;
 using System;
